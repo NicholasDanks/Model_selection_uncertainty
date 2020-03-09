@@ -12,6 +12,7 @@ source(file = "library.R")
 source(file = "load_models.R")
 library(seminr)
 
+## Please note that datasets can be downloaded a: https://pls-sem.net. 
 # Load data
 training_data <- read.csv(file = "data/Corp Rep training data.csv")
 holdout_data <- read.csv("data/Corp Rep holdout data.csv")
@@ -46,21 +47,25 @@ GM_weights <- IC_matrices[[3]][3,]
 Equal_weights <- rep(0.2,5)
 weights_matrix <- rbind(AIC_weights, BIC_weights, GM_weights, Equal_weights)
 
+CUSA_holdout_data <- scale(append(holdout_data[,"cusa"], training_data[,"cusa"]))[1:nrow(holdout_data)]
+
 CUSA_OOS_predictions_RMSE <- c()
 for (i in 1:length(models)) {
-  CUSA_OOS_predictions_RMSE[[i]] <- sqrt(mean(((holdout_data[,"cusa"] - (predict(object = models[[i]],testData = holdout_data[,models[[3]]$mmMatrix[,"measurement"]]))$predicted_items[,"cusa"])^2)))
+  CUSA_OOS_predictions_RMSE[[i]] <- sqrt(mean(((CUSA_holdout_data - (predict(object = models[[i]],testData = holdout_data[,models[[3]]$mmMatrix[,"measurement"]]))$predicted_composite_scores[,"CUSA"])^2)))
 }
+
 
 OOS_predictions_matrix <- matrix(0,nrow = nrow(holdout_data),ncol = length(corp_rep_measurement_model))
 for (i in 1:length(models)) {
-  OOS_predictions_matrix[,i] <- (predict(object = models[[i]],testData = holdout_data[,models[[3]]$mmMatrix[,"measurement"]]))$predicted_items[,"cusa"]
+  OOS_predictions_matrix[,i] <- (predict(object = models[[i]],testData = holdout_data[,models[[3]]$mmMatrix[,"measurement"]]))$predicted_composite_scores[,"CUSA"]
 }
+
 
 CUSA_OOS_MVA_predictions <- OOS_predictions_matrix %*% t(weights_matrix)
 
 CUSA_OOS_MVA_predictions_RMSE <- c()
 for (i in 1:ncol(CUSA_OOS_MVA_predictions)) {
-  CUSA_OOS_MVA_predictions_RMSE[[i]] <- sqrt(mean((holdout_data[,"cusa"] - CUSA_OOS_MVA_predictions[,i])^2)) 
+  CUSA_OOS_MVA_predictions_RMSE[[i]] <- sqrt(mean((CUSA_holdout_data - CUSA_OOS_MVA_predictions[,i])^2)) 
 }
 
 # Name objects

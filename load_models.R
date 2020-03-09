@@ -95,3 +95,4 @@ corp_rep_measurement_model[[5]] <- constructs(
   composite("LIKE", multi_items("like_", 1:3)),
   composite("CUSL", multi_items("cusl_", 1:3))
 )
+

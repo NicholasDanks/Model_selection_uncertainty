@@ -40,7 +40,6 @@ IC_weights <- function(deltas) {
   return(rel_likelihoods / sum_likelihoods)
 }
 
-
 ## Function to calculate AIC, delta AIC, Akaike weights, and Evidence Ratio for each model
 ## Takes models in a list and endogenous is a character name of endogenous construct, sat_model is the saturated model
 ## For GM calculation
@@ -85,3 +84,4 @@ metrics <- list()
 metrics[[1]] <- endogenous_AIC
 metrics[[2]] <- endogenous_BIC
 metrics[[3]] <- endogenous_GM
+
