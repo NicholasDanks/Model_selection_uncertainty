@@ -1,3 +1,9 @@
+# For calculation of Information Theoretic Criteria in PLS-SEM please see: 
+# Sharma, P.N., Sarstedt, M., Shmueli, G., Kim, K.H. (†), and Thiele, K.O. "PLS-Based Model Selection: The Role of Alternative Explanations in Information Systems Research," Journal of the Association for Information Systems, 20(4), pp. 346-397, (2019).
+
+# For calculation of Akaike weights and Model-averaged predictions in PLS-SEM please see: 
+# Danks, N., Sharma, P.N., and Sarstedt, M. "Model Selection Uncertainty and Multimodel Inference in Partial Least Squares Structural Equation Modeling (PLS-SEM)," forthcoming in the Journal of Business Research, (2020).
+
 # library
 
 ## Function to calculate AIC
